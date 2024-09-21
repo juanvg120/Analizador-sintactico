@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Analizador Léxico y Sintáctico</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #f5f5f5;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            min-height: 100vh;
+        }
+        h1 {
+            color: #333;
+            margin-bottom: 20px;
+            font-size: 2rem;
+        }
+        form {
+            background: white;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            padding: 20px;
+            width: 80%;
+            max-width: 800px;
+            margin-bottom: 20px;
+        }
+        textarea {
+            width: calc(100% - 20px);
+            height: 150px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            padding: 10px;
+            font-size: 16px;
+            resize: vertical;
+            outline: none;
+            margin-bottom: 10px;
+        }
+        button {
+            background-color: #007bff;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            font-size: 16px;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+            margin: 5px;
+        }
+        button:hover {
+            background-color: #0056b3;
+        }
+        button#borrar {
+            background-color: #dc3545;
+        }
+        button#borrar:hover {
+            background-color: #c82333;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
+        th, td {
+            padding: 12px;
+            border: 1px solid #ddd;
+            text-align: left;
+        }
+        th {
+            background-color: #f8f9fa;
+        }
+        td {
+            background-color: #ffffff;
+            color: #333;
+        }
+        caption {
+            font-size: 1.25rem;
+            margin: 10px 0;
+            color: #333;
+        }
+        .tables-container {
+            display: flex;
+            justify-content: space-around;
+            width: 100%;
+        }
+        .table-wrapper {
+            width: 45%;
+        }
+    </style>
+</head>
+<body>
+    <h1>Analizador Léxico y Sintáctico</h1>
+    
+    <form method="POST">
+        <textarea name="codigo" placeholder="Ingrese el código..."></textarea>
+        <br>
+        <button type="submit" id="analizar">Analizar</button>
+        <button type="reset" id="borrar">Borrar</button>
+    </form>
+    
+    <div class="tables-container">
+        <!-- Tabla del Analizador Léxico -->
+        <div class="table-wrapper">
+            <center><h2>Resultados del Analizador Léxico</h2></center>
+            <table>
+                <tr>
+                    <th>Tipo</th>
+                    <th>Valor</th>
+                    <th>Línea</th>
+                    <th>Columna</th>
+                </tr>
+                {% for token in tokens %}
+                <tr>
+                    <td>{{ token.tipo }}</td>
+                    <td>{{ token.valor }}</td>
+                    <td>{{ token.linea }}</td>
+                    <td>{{ token.columna }}</td>
+                </tr>
+                {% endfor %}
+            </table>
+        </div>
+
+        <!-- Tabla del Analizador Sintáctico -->
+        <div class="table-wrapper">
+            <center><h2>Resultados del Analizador Sintáctico</h2></center>
+            <table>
+                <tr>
+                    <th>Línea</th>
+                    <th>Tipo de Estructura</th>
+                    <th>Estructura Correcta</th>
+                    <th>Estructura Incorrecta</th>
+                </tr>
+                {% for estructura in structures %}
+                <tr>
+                    <td>{{ estructura.linea }}</td>
+                    <td>{{ estructura.estructura }}</td>
+                    <td>{{ estructura.valida }}</td>
+                    <td>{{ estructura.error }}</td>
+                </tr>
+                {% endfor %}
+            </table>
+        </div>
+    </div>
+</body>
+</html>
